@@ -4,8 +4,6 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Database\Factories\UserFactory;
-use Illuminate\Database\Eloquent\Attributes\Fillable;
-use Illuminate\Database\Eloquent\Attributes\Hidden;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -28,6 +26,11 @@ class User extends Authenticatable
 
     ];
 
+    protected $hidden = [
+        'password',
+        'remember_token',
+    ];
+
     /**
      * Get the attributes that should be cast.
      *
@@ -40,11 +43,13 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    
     /**
      * relation entre l'utilisateur et le lien
      */
 
     public function liens(){
-        return $this->belongsTo(Lien::class);
+        return $this->hasMany(Lien::class);
     }
 }
